@@ -46,7 +46,7 @@ The `Logic::connect(InputBits in, Logic& predecessor, OutputBits out)` will conn
 - Let the predecessor store a ptr to this component so it can notify when it updates.
 - Update self.
 
-Let's say we connect input 1 with output 2
+Let's say we connect input 1 with output 1
 ```mermaid
 flowchart LR
 	subgraph Component
@@ -75,11 +75,11 @@ flowchart LR
 		P_Logic --> O_2
 		P_Logic --> O_m
 	end
-	I_1 -->|getOut| O_2
-	O_2 -->|notify| Component
+	I_1 -->|getOut| O_1
+	O_1 -->|notify| Component
 	
 ```
-Our component will now be connected with the predecessor. Should the predecessor's output 2 update, it will notify our component. He will then be able to fetch the value of the predecessor's output 2. Inputbits are thus not stored inside the component, but in the predecessor.
+Our component will now be connected with the predecessor. Should the predecessor's output 1 update, it will notify our component. He will then be able to fetch the value of the predecessor's output 1. Inputbits are thus not stored inside the component, but in the predecessor.
 
 #### Disconnect
 Analogue to the connect function the `Logic::disConnect(InputBits in)` will disconnect a given input bit from the output bit it listens to.
