@@ -34,3 +34,6 @@
 # Exlude build directory
 build/
 .cache/
+
+# Exclue obsidian
+.obsidian/
