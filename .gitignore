@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Exlude build directory
+build/
+.cache/
+
+# Exclue obsidian
+.obsidian/
