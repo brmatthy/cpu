@@ -3,7 +3,7 @@
 #include "nand.h"
 #include "or.h"
 
-XOR::XOR(){
+XOR::XOR(): Logic(){
 	_nodes[IN_XOR_A] = std::make_shared<Node>();
 	_nodes[IN_XOR_B] = std::make_shared<Node>();
 	_nodes[OUT_XOR] = std::make_shared<Node>();
