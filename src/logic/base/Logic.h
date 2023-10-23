@@ -7,7 +7,7 @@
 
 
 class Logic{
-	private:
+	protected:
 		/* Links an input to an output of the predecessor logic component. */
 		std::unordered_map<NodeType, std::shared_ptr<Node>> _nodes;
 

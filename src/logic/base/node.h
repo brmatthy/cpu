@@ -6,7 +6,27 @@
 class Logic;
 
 enum NodeType{
-	DUMMY
+	IN_AND_A,
+	IN_AND_B,
+	OUT_AND,
+
+	IN_OR_A,
+	IN_OR_B,
+	OUT_OR,
+
+	IN_NOT,
+	OUT_NOT,
+
+	IN_NAND_A,
+	IN_NAND_B,
+	OUT_NAND,
+
+	IN_NOR_A,
+	IN_NOR_B,
+	OUT_NOR,
+
+
+
 };
 
 class Node : public std::enable_shared_from_this<Node>{
