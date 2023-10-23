@@ -2,23 +2,22 @@
 This folder contains all mutual code for the [logic components](../README.md).
 
 ## Core idea
-Each [logic component](../README.md) must extend the `Logic` class. This class manages some of the basic necessities of each component
-- **State management**: The logic class will keep track of all the output bits of the logic component.
-- **[Connection management](#Connections)**:The logic class will keep track of all the other components that are connected to this component. This for both the in and output bits of this class.
+Each [logic component](../README.md) must extend the `Logic` class. This class can be used to link multiple other logic components to create complexer components. Internally each component contains `Node` objects. Any node can connect with any other node. When one node updates it propagates this update to all the nodes that are connected to it.
+
 
 ### Structure
 ```mermaid
 flowchart LR
 	subgraph Logic component
 		direction LR
-		subgraph InputBits
+		subgraph InputNodes
 			I_1
 			I_2
 			I_n
 		end
 		subgraph Inner-Logic
 		end
-		subgraph OutputBIts
+		subgraph OutputNodes
 			O_1
 			O_2
 			O_m
@@ -32,26 +31,22 @@ flowchart LR
 		Inner-Logic --> O_m
 	end
 ```
-All the logic components consist of 3 parts:
-- 1. **InputBits**: These are the input values of the component. The inner logic can make use of these to compute the OutputBits. All the InputBits of all components are listed in the enum `InputBits`. Please read [here](#InputBits) on how to use this enum.
-- 2. **OutputBits**: These are the output values of the component. The inner logic will update these. All the OutputBits of all components are listed in the enum `OutputBits`. Please read [here](#OutputBits) on how to use this enum.
-- 3. **Inner Logic**: The inner logic must use the InputBits to compute the Outputbits. In order to do this it will evaluate the `Logic::update()` function. See [here](#update()) how that works.
+The `Logic` class keeps a map of all it's nodes. This map has the type `std::unordered_map<NodeType, std::shared_ptr<Node>>`. `NodeType` is an enum containing all the names for the nodes. A node can be retrieved from a compnent using this name.
 ### Connections
-In order to create a cpu we will need to connect multiple logic components. This is also handled by the `Logic` class.
+In order to create a cpu we will need to connect multiple logic components. This can be done by connecting multiple nodes of different components. 
 
 #### Connect
-The `Logic::connect(InputBits in, Logic& predecessor, OutputBits out)` will connect a given output bit from a predecessor logic component to a given input bit of this component. It will do this in 3 steps.
+The `Node::connect(std::shared_ptr<Node> node)` will connect 2 given `Node`'s. 
 
-- Store a ptr to the predecessor and the outputbit
-- Let the predecessor store a ptr to this component so it can notify when it updates.
-- Update self.
+Let's say we connect input 1 with output 1. The following happens
+- I_1 stores O_1 as node to fetch state from.
+- O_1 adds I_1 to it's set of nodes to notify when it updates.
 
-Let's say we connect input 1 with output 1
 ```mermaid
 flowchart LR
 	subgraph Component
 		direction LR
-		subgraph InputBits
+		subgraph InputNodes
 			I_1
 			I_2
 			I_n
@@ -64,7 +59,7 @@ flowchart LR
 	end
 	subgraph Predecessor
 		direction LR
-		subgraph OutputBIts
+		subgraph OutputNodes
 			O_1
 			O_2
 			O_m
@@ -75,93 +70,21 @@ flowchart LR
 		P_Logic --> O_2
 		P_Logic --> O_m
 	end
-	I_1 -->|getOut| O_1
-	O_1 -->|notify| Component
+	I_1 -->|getState| O_1
+	O_1 -->|notify| I_1
 	
 ```
-Our component will now be connected with the predecessor. Should the predecessor's output 1 update, it will notify our component. He will then be able to fetch the value of the predecessor's output 1. Inputbits are thus not stored inside the component, but in the predecessor.
+If the predecessor's O_1 updates state, our component's I_1 will be notified, will update itself, and will tell our component that it updated, next it will notify all the nodes that are subscribed to it.
 
 #### Disconnect
 Analogue to the connect function the `Logic::disConnect(InputBits in)` will disconnect a given input bit from the output bit it listens to.
 
-### In- and out bits
+### NodeType
 #### InputBits
-The `InputBits` enum is located in `src/logic/base/InputBits.h`. When you create a new logic component you have to add all the input bits to this enum. The name of your new input bit will follow the following structure
+The `NodeType` enum is located in `src/logic/base/Node.h`. When you create a new logic component you have to add all the nodes to this enum. The name of your newnode will follow the following structure
 
-IN\_<COMPONENT_NAME_ALL_CAPS>\_<BIT_NAME_ALL_CAPS>
+<IN|OUT>\_<COMPONENT_NAME_ALL_CAPS>\_<BIT_NAME_ALL_CAPS>
 
-Once all enum values are defined your new class must make available which enum values correspond to it's component. To do so, implement the [getAllInputBits()](#getAllInputBits()) function.
-#### OutputBits
-The `OutputBits` enum is located in `src/logic/base/OutputBits.h`. When you create a new logic component you have to add all the output bits to this enum. The name of your new input bit will follow the following structure
+### Logic update()
+The `update()` function in the `Logic` class is called when any of it's nodes are notified for an update. Since nodes automatically update when the predecessor updates this function is empty. However, by doing so we would only be able to pass state, but not change state. The basic operations like `or`, `and`, etc. will be implemented by overriding this update function.
 
-OUT\_<COMPONENT_NAME_ALL_CAPS>\_<BIT_NAME_ALL_CAPS>
-
-Once all enum values are defined your new class must make available which enum values correspond to it's component. To do so, implement the [getAllOutputBits()](#getAllOutputBits()) function.
-
-## Pure virtual functions
-
-#### update()
-The `update()` function must be implemented in each logic component. This function is used to compute the output values from the input values. If any predecessor component calls `notify()` the `update()`  function will recompute the output bits since they may be updated. Using this method the change of any output bit will propagate trough the logic network until it stabilises. 
-#### getAllInputBits()
-This method simply returns a set of all the input bits corresponding to this component.
-To implement this function to the following.
-```cpp
-// MyComponent.h
-class MyComponent{
-	private:
-		// define static set
-		static std::unordered_set<InputBits> _inBits;
-		// override function
-		std::unordered_set<InputBits> getAllInputBits() override;
-		...
-}
-```
-```cpp
-// MyComponent.cpp
-
-// init set
-std::unordered_set<InputBits> MyComponent::_inBits = {IN_VAL_1, IN_VAL_2, ...};
-
-// implement function
-std::unordered_set<InputBits> MyComponent::getAllInputBits(){
-	return _inBits;
-}
-```
-#### getAllOutputBits()
-This method simply returns a set of all the output bits corresponding to this component.
-To implement this function to the following.
-```cpp
-// MyComponent.h
-class MyComponent{
-	private:
-		// define static set
-		static std::unordered_set<OutputBits> _outBits;
-		// override function
-		std::unordered_set<OutputBits> getAllOutputBits() override;
-		...
-}
-```
-```cpp
-// MyComponent.cpp
-
-// init set
-std::unordered_set<OutputBits> MyComponent::_outBits = {IN_VAL_1, IN_VAL_2, ...};
-
-// implement function
-std::unordered_set<OutputBits> MyComponent::getAllOutputBits(){
-	return _outBits;
-}
-```
-## Drawbacks
-The pure virtual functions are needed to initialise the Logic object. Calling a virtual function in a constructor however is bad practice and may lead to crashes, undesired behaviour, etc.
-To overcome this the `src/logic/base/component_factory.h` contains a `createLogicComponent` function. This is a template function that can create any logic component. Internally it will:
-1. Create the object
-2. Call the `initialize()` function. This will init the data structures with basic values.
-3. Call `update()`
-
-This way objects can be safely created. Keep in mind not to use the data structures in the constructor of your child class since they will be reset afterwards by the `initialize()` function.
-
-```cpp
-// create new object of class MyComponent
-std::shared_ptr<MyComponent> = std::make_shared<MyComponent>();
-```
