@@ -25,6 +25,9 @@ enum NodeType{
 	IN_NOR_B,
 	OUT_NOR,
 
+	IN_XOR_A,
+	IN_XOR_B,
+	OUT_XOR,
 
 
 };
