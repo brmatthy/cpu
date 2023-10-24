@@ -4,9 +4,9 @@
 #include "or.h"
 
 XOR::XOR(): Logic(){
-	_nodes[IN_XOR_A] = std::make_shared<Node>();
-	_nodes[IN_XOR_B] = std::make_shared<Node>();
-	_nodes[OUT_XOR] = std::make_shared<Node>();
+	_nodes[IN_XOR_A] = std::make_shared<Node>(this);
+	_nodes[IN_XOR_B] = std::make_shared<Node>(this);
+	_nodes[OUT_XOR] = std::make_shared<Node>(this);
 
 	_or = std::make_shared<OR>();
 	_and = std::make_shared<AND>();

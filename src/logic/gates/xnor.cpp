@@ -3,9 +3,9 @@
 #include "xor.h"
 
 XNOR::XNOR() : Logic() {
-	_nodes[IN_XNOR_A] = std::make_shared<Node>();
-	_nodes[IN_XNOR_B] = std::make_shared<Node>();
-	_nodes[OUT_XNOR] = std::make_shared<Node>();
+	_nodes[IN_XNOR_A] = std::make_shared<Node>(this);
+	_nodes[IN_XNOR_B] = std::make_shared<Node>(this);
+	_nodes[OUT_XNOR] = std::make_shared<Node>(this);
 
 	_xor = std::make_shared<XOR>();
 	_not = std::make_shared<NOT>();

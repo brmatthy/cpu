@@ -1,7 +1,7 @@
 #include "node.h"
 #include "Logic.h"
 
-Node::Node(std::shared_ptr<Logic> component){
+Node::Node(Logic* component){
 	_state = false;
 	_component = component;
 }
@@ -46,6 +46,7 @@ void Node::setState(bool state){
 void Node::connect(std::shared_ptr<Node> node){
 	node->subscribe(shared_from_this());
 	_predecessor = node;
+	update();
 }
 
 void Node::disconnect(){

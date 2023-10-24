@@ -2,9 +2,9 @@
 #include <memory>
 
 OR::OR() : Logic() {
-	_nodes[IN_OR_A] = std::make_shared<Node>();
-	_nodes[IN_OR_B] = std::make_shared<Node>();
-	_nodes[OUT_OR] = std::make_shared<Node>();
+	_nodes[IN_OR_A] = std::make_shared<Node>(this);
+	_nodes[IN_OR_B] = std::make_shared<Node>(this);
+	_nodes[OUT_OR] = std::make_shared<Node>(this);
 }
 
 

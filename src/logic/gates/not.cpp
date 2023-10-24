@@ -1,9 +1,8 @@
 #include "not.h"
-#include <memory>
 
 NOT::NOT() : Logic() {
-	_nodes[IN_NOT] = std::make_shared<Node>();
-	_nodes[OUT_NOT] = std::make_shared<Node>();
+	_nodes[IN_NOT] = std::make_shared<Node>(this);
+	_nodes[OUT_NOT] = std::make_shared<Node>(this);
 }
 
 

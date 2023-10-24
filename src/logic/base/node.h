@@ -33,6 +33,8 @@ enum NodeType{
 	IN_XNOR_B,
 	OUT_XNOR,
 
+	BIT,
+
 
 };
 
@@ -49,7 +51,7 @@ private:
 	std::unordered_set<std::shared_ptr<Node>> _subscribed;
 
 	/* The logic component that contains this node */
-	std::shared_ptr<Logic> _component;
+	Logic* _component;
 
 	/*
 	*	Add a node to the subscribed set. All nodes
@@ -74,7 +76,7 @@ private:
 
 public:
 
-	Node(std::shared_ptr<Logic> component);
+	Node(Logic* component);
 
 	const bool getState();
 
