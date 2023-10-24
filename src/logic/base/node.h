@@ -6,7 +6,36 @@
 class Logic;
 
 enum NodeType{
-	DUMMY
+	IN_AND_A,
+	IN_AND_B,
+	OUT_AND,
+
+	IN_OR_A,
+	IN_OR_B,
+	OUT_OR,
+
+	IN_NOT,
+	OUT_NOT,
+
+	IN_NAND_A,
+	IN_NAND_B,
+	OUT_NAND,
+
+	IN_NOR_A,
+	IN_NOR_B,
+	OUT_NOR,
+
+	IN_XOR_A,
+	IN_XOR_B,
+	OUT_XOR,
+
+	IN_XNOR_A,
+	IN_XNOR_B,
+	OUT_XNOR,
+
+	BIT,
+
+
 };
 
 class Node : public std::enable_shared_from_this<Node>{
@@ -22,7 +51,7 @@ private:
 	std::unordered_set<std::shared_ptr<Node>> _subscribed;
 
 	/* The logic component that contains this node */
-	std::shared_ptr<Logic> _component;
+	Logic* _component;
 
 	/*
 	*	Add a node to the subscribed set. All nodes
@@ -47,7 +76,7 @@ private:
 
 public:
 
-	Node(std::shared_ptr<Logic> component);
+	Node(Logic* component);
 
 	const bool getState();
 
