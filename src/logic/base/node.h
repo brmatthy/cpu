@@ -35,6 +35,11 @@ enum NodeType{
 
 	BIT,
 
+	IN_DLATCH_DATA,
+	IN_DLATCH_CLK,
+	OUT_DLATCH,
+	OUT_DLATCH_INV,
+
 
 };
 
