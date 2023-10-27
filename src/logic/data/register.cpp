@@ -1,5 +1,5 @@
 #include "register.h"
-#include "dlatch.h"
+#include "dflipflop.h"
 #include <memory>
 #include <vector>
 
@@ -14,12 +14,12 @@ Register::Register(std::vector<NodeType> in, std::vector<NodeType> out){
 	}
 	_nodes[IN_REG_CLK] = std::make_shared<Node>(this);
 
-	// create the latches
+	// create the flip flops
 	for(NodeType nodeType: in){
-		_latches[nodeType] = std::make_shared<DLatch>();
+		_latches[nodeType] = std::make_shared<DFlipFlop>();
 	}
 
-	// connect the latches
+	// connect the flip flops
 	for(unsigned int i = 0; i < in.size(); i++){
 		auto latchPtr = _latches[in[i]];
 

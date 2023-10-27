@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../base/Logic.h"
-#include "dlatch.h"
+#include "dflipflop.h"
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
@@ -9,7 +9,7 @@
 
 class Register : Logic {
 protected:
-	std::unordered_map<NodeType, std::shared_ptr<DLatch>> _latches;
+	std::unordered_map<NodeType, std::shared_ptr<DFlipFlop>> _latches;
 public:
 
 	/*
