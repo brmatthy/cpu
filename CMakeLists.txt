@@ -5,15 +5,24 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(tests
+	## doctest header ##
 	tests/doctest.h
-	tests/test_gates.cpp
 
+	## test files
+	tests/test_gates.cpp
+	tests/test_data.cpp
+
+	## basic components ##
 	src/logic/base/Logic.cpp
 	src/logic/base/Logic.h
 
 	src/logic/base/node.cpp
 	src/logic/base/node.h
 
+	src/logic/bit.cpp
+	src/logic/bit.h
+
+	## gates ##
 	src/logic/gates/not.cpp
 	src/logic/gates/not.h
 
@@ -35,6 +44,21 @@ add_executable(tests
 	src/logic/gates/xnor.cpp
 	src/logic/gates/xnor.h
 
-	src/logic/bit.cpp
-	src/logic/bit.h
+	## data ##
+	src/logic/data/dlatch.cpp
+	src/logic/data/dlatch.h
+	
+	src/logic/data/dflipflop.cpp
+	src/logic/data/dflipflop.h
+
+	src/logic/data/register.cpp
+	src/logic/data/register.h
+
+	src/logic/data/register16.cpp
+	src/logic/data/register16.h
+
+	src/logic/data/register8.cpp
+	src/logic/data/register8.h
+
+
 )
