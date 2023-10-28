@@ -2,7 +2,7 @@
 
 #include "register.h"
 
-class Register16 : Register {
+class Register16 : public Register {
 public:
 	Register16();
 };

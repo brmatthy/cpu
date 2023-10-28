@@ -1,6 +1,8 @@
 #include "register.h"
 #include "dflipflop.h"
+#include <iostream>
 #include <memory>
+#include <string>
 #include <vector>
 
 
@@ -16,17 +18,15 @@ Register::Register(std::vector<NodeType> in, std::vector<NodeType> out){
 
 	// create the flip flops
 	for(NodeType nodeType: in){
-		_latches[nodeType] = std::make_shared<DFlipFlop>();
+		_flipFlops[nodeType] = std::make_shared<DFlipFlop>();
 	}
-
 	// connect the flip flops
 	for(unsigned int i = 0; i < in.size(); i++){
-		auto latchPtr = _latches[in[i]];
+		auto flipFlopPtr = _flipFlops[in[i]];
 
-		_nodes[out[i]]->connect(latchPtr->getNode(OUT_DLATCH));
+		_nodes[out[i]]->connect(flipFlopPtr->getNode(OUT_DFLIPFLOP));
 
-		latchPtr->getNode(IN_DLATCH_DATA)->connect(_nodes[in[i]]);
-		latchPtr->getNode(IN_DLATCH_CLK)->connect(_nodes[IN_REG_CLK]);
-		
+		flipFlopPtr->getNode(IN_DFLIPFLOP_DATA)->connect(_nodes[in[i]]);
+		flipFlopPtr->getNode(IN_DFLIPFLOP_CLK)->connect(_nodes[IN_REG_CLK]);
 	}
 }

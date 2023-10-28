@@ -7,9 +7,9 @@
 #include <unordered_set>
 #include <vector>
 
-class Register : Logic {
+class Register : public Logic {
 protected:
-	std::unordered_map<NodeType, std::shared_ptr<DFlipFlop>> _latches;
+	std::unordered_map<NodeType, std::shared_ptr<DFlipFlop>> _flipFlops;
 public:
 
 	/*

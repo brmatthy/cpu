@@ -51,4 +51,14 @@ add_executable(tests
 	src/logic/data/dflipflop.cpp
 	src/logic/data/dflipflop.h
 
+	src/logic/data/register.cpp
+	src/logic/data/register.h
+
+	src/logic/data/register16.cpp
+	src/logic/data/register16.h
+
+	src/logic/data/register8.cpp
+	src/logic/data/register8.h
+
+
 )
