@@ -44,6 +44,9 @@ add_executable(tests
 	src/logic/gates/xnor.cpp
 	src/logic/gates/xnor.h
 
+	src/logic/gates/selector.cpp
+	src/logic/gates/selector.h
+
 	## data ##
 	src/logic/data/dlatch.cpp
 	src/logic/data/dlatch.h

@@ -17,7 +17,7 @@ public:
 	* These list must be the same size. The first element of the in list
 	* will be linked to the first element of the out list.
 	* The in list must not contain IN_REG_CLK.
-* @param in List of input nodes for the register. 
+	* @param in List of input nodes for the register. 
 	* @param out List of output nodes for the register.
 	*/
 	Register(std::vector<NodeType> in, std::vector<NodeType> out);

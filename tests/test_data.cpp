@@ -107,41 +107,41 @@ TEST_SUITE("Data"){
 		auto reg = std::make_shared<Register16>();
 
 		// easy get output
-		auto out0 = reg->getNode(OUT_REG_0);
-		auto out1 = reg->getNode(OUT_REG_1);
-		auto out2 = reg->getNode(OUT_REG_2);
-		auto out3 = reg->getNode(OUT_REG_3);
-		auto out4 = reg->getNode(OUT_REG_4);
-		auto out5 = reg->getNode(OUT_REG_5);
-		auto out6 = reg->getNode(OUT_REG_6);
-		auto out7 = reg->getNode(OUT_REG_7);
-		auto out8 = reg->getNode(OUT_REG_8);
-		auto out9 = reg->getNode(OUT_REG_9);
-		auto outA = reg->getNode(OUT_REG_A);
-		auto outB = reg->getNode(OUT_REG_B);
-		auto outC = reg->getNode(OUT_REG_C);
-		auto outD = reg->getNode(OUT_REG_D);
-		auto outE = reg->getNode(OUT_REG_E);
-		auto outF = reg->getNode(OUT_REG_F);
+		auto out0 = reg->getNode(OUT_0);
+		auto out1 = reg->getNode(OUT_1);
+		auto out2 = reg->getNode(OUT_2);
+		auto out3 = reg->getNode(OUT_3);
+		auto out4 = reg->getNode(OUT_4);
+		auto out5 = reg->getNode(OUT_5);
+		auto out6 = reg->getNode(OUT_6);
+		auto out7 = reg->getNode(OUT_7);
+		auto out8 = reg->getNode(OUT_8);
+		auto out9 = reg->getNode(OUT_9);
+		auto outA = reg->getNode(OUT_A);
+		auto outB = reg->getNode(OUT_B);
+		auto outC = reg->getNode(OUT_C);
+		auto outD = reg->getNode(OUT_D);
+		auto outE = reg->getNode(OUT_E);
+		auto outF = reg->getNode(OUT_F);
 
 		// link register to input	
 		reg->getNode(IN_REG_CLK)->connect(clk->getNode(BIT));
-		reg->getNode(IN_REG_0)->connect(data0->getNode(BIT));
-		reg->getNode(IN_REG_1)->connect(data1->getNode(BIT));
-		reg->getNode(IN_REG_2)->connect(data2->getNode(BIT));
-		reg->getNode(IN_REG_3)->connect(data3->getNode(BIT));
-		reg->getNode(IN_REG_4)->connect(data4->getNode(BIT));
-		reg->getNode(IN_REG_5)->connect(data5->getNode(BIT));
-		reg->getNode(IN_REG_6)->connect(data6->getNode(BIT));
-		reg->getNode(IN_REG_7)->connect(data7->getNode(BIT));
-		reg->getNode(IN_REG_8)->connect(data8->getNode(BIT));
-		reg->getNode(IN_REG_9)->connect(data9->getNode(BIT));
-		reg->getNode(IN_REG_A)->connect(dataA->getNode(BIT));
-		reg->getNode(IN_REG_B)->connect(dataB->getNode(BIT));
-		reg->getNode(IN_REG_C)->connect(dataC->getNode(BIT));
-		reg->getNode(IN_REG_D)->connect(dataD->getNode(BIT));
-		reg->getNode(IN_REG_E)->connect(dataE->getNode(BIT));
-		reg->getNode(IN_REG_F)->connect(dataF->getNode(BIT));
+		reg->getNode(IN_A_0)->connect(data0->getNode(BIT));
+		reg->getNode(IN_A_1)->connect(data1->getNode(BIT));
+		reg->getNode(IN_A_2)->connect(data2->getNode(BIT));
+		reg->getNode(IN_A_3)->connect(data3->getNode(BIT));
+		reg->getNode(IN_A_4)->connect(data4->getNode(BIT));
+		reg->getNode(IN_A_5)->connect(data5->getNode(BIT));
+		reg->getNode(IN_A_6)->connect(data6->getNode(BIT));
+		reg->getNode(IN_A_7)->connect(data7->getNode(BIT));
+		reg->getNode(IN_A_8)->connect(data8->getNode(BIT));
+		reg->getNode(IN_A_9)->connect(data9->getNode(BIT));
+		reg->getNode(IN_A_A)->connect(dataA->getNode(BIT));
+		reg->getNode(IN_A_B)->connect(dataB->getNode(BIT));
+		reg->getNode(IN_A_C)->connect(dataC->getNode(BIT));
+		reg->getNode(IN_A_D)->connect(dataD->getNode(BIT));
+		reg->getNode(IN_A_E)->connect(dataE->getNode(BIT));
+		reg->getNode(IN_A_F)->connect(dataF->getNode(BIT));
 
 		// pulse clock to get init state
 		clk->setState(true);
