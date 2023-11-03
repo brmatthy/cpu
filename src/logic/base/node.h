@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <unordered_set>
+#include <vector>
 
 class Logic;
 
@@ -112,6 +113,21 @@ enum NodeType{
 	OUT_FULLADD_C,
 
 	OUT_RPPLADD_CARRY,
+
+	IN_ALU_C,
+	OUT_ALU_C,
+};
+
+class NodeTypeGetter {
+private:
+	static const std::vector<NodeType>  _inA16;
+	static const std::vector<NodeType>  _inB16;
+	static const std::vector<NodeType>  _out16;
+
+public:
+	static const std::vector<NodeType>& getInA16();
+	static const std::vector<NodeType>& getInB16();
+	static const std::vector<NodeType>& getOut16();
 };
 
 class Node : public std::enable_shared_from_this<Node>{
