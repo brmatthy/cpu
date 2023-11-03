@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../base/Logic.h"
-#include "../gates/and.h"
+#include "../../base/Logic.h"
+#include "../../gates/and.h"
 #include <memory>
 #include <unordered_map>
 #include <vector>
