@@ -17,7 +17,6 @@ public:
 	* @param inA List of input nodes for the input A. 
 	* @param inB List of input nodes for the input B. 
 	* @param out List of output nodes.
-	
 	*/
-	BitwiseAND(std::vector<NodeType> inA, std::vector<NodeType> inB, std::vector<NodeType> out);
+	BitwiseAND(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const std::vector<NodeType> out);
 };

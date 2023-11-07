@@ -1,8 +1,8 @@
 #include "bitwiseNOT.h"
 
 BitwiseNOT::BitwiseNOT(
-	std::vector<NodeType> in, 
-	std::vector<NodeType> out): 
+	const std::vector<NodeType> in, 
+	const std::vector<NodeType> out): 
 		Logic() {
 	// create all the components
 	for(unsigned int i = 0; i < in.size() ; i++){

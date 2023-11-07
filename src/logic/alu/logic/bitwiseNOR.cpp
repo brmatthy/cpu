@@ -1,6 +1,6 @@
-#include "bitwiseAND.h"
+#include "bitwiseNOR.h"
 
-BitwiseAND::BitwiseAND(
+BitwiseNOR::BitwiseNOR(
 	const std::vector<NodeType> inA, 
 	const std::vector<NodeType> inB, 
 	const std::vector<NodeType> out): 
@@ -13,12 +13,12 @@ BitwiseAND::BitwiseAND(
 		_nodes[out[i]] = std::make_shared<Node>(this);
 
 		// create the and gates
-		auto gate = std::make_shared<AND>();
-		_andGates.push_back(gate);
+		auto gate = std::make_shared<NOR>();
+		_orGates.push_back(gate);
 
 		// link the gates
-		_nodes[out[i]]->connect(gate->getNode(OUT_AND));
-		gate->getNode(IN_AND_A)->connect(_nodes[inA[i]]);
-		gate->getNode(IN_AND_B)->connect(_nodes[inB[i]]);
+		_nodes[out[i]]->connect(gate->getNode(OUT_NOR));
+		gate->getNode(IN_NOR_A)->connect(_nodes[inA[i]]);
+		gate->getNode(IN_NOR_B)->connect(_nodes[inB[i]]);
 	}
 }

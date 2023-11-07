@@ -1,9 +1,9 @@
 #include "bitwiseOR.h"
 
 BitwiseOR::BitwiseOR(
-	std::vector<NodeType> inA, 
-	std::vector<NodeType> inB, 
-	std::vector<NodeType> out): 
+	const std::vector<NodeType> inA, 
+	const std::vector<NodeType> inB, 
+	const std::vector<NodeType> out): 
 		Logic() {
 	// create all the components
 	for(unsigned int i = 0; i < inA.size() ; i++){

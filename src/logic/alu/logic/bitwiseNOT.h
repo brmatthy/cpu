@@ -16,5 +16,5 @@ public:
 	* @param inA List of input nodes for the input A. 
 	* @param out List of output nodes.
 	*/
-	BitwiseNOT(std::vector<NodeType> in, std::vector<NodeType> out);
+	BitwiseNOT(const std::vector<NodeType> in, const std::vector<NodeType> out);
 };

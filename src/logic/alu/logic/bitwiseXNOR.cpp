@@ -1,6 +1,6 @@
-#include "bitwiseAND.h"
+#include "bitwiseXNOR.h"
 
-BitwiseAND::BitwiseAND(
+BitwiseXNOR::BitwiseXNOR(
 	const std::vector<NodeType> inA, 
 	const std::vector<NodeType> inB, 
 	const std::vector<NodeType> out): 
@@ -13,12 +13,12 @@ BitwiseAND::BitwiseAND(
 		_nodes[out[i]] = std::make_shared<Node>(this);
 
 		// create the and gates
-		auto gate = std::make_shared<AND>();
-		_andGates.push_back(gate);
+		auto gate = std::make_shared<XNOR>();
+		_xorGates.push_back(gate);
 
 		// link the gates
-		_nodes[out[i]]->connect(gate->getNode(OUT_AND));
-		gate->getNode(IN_AND_A)->connect(_nodes[inA[i]]);
-		gate->getNode(IN_AND_B)->connect(_nodes[inB[i]]);
+		_nodes[out[i]]->connect(gate->getNode(OUT_XNOR));
+		gate->getNode(IN_XNOR_A)->connect(_nodes[inA[i]]);
+		gate->getNode(IN_XNOR_B)->connect(_nodes[inB[i]]);
 	}
 }

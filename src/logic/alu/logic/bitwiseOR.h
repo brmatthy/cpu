@@ -18,5 +18,5 @@ public:
 	* @param inB List of input nodes for the input B. 
 	* @param out List of output nodes.
 	*/
-	BitwiseOR(std::vector<NodeType> inA, std::vector<NodeType> inB, std::vector<NodeType> out);
+	BitwiseOR(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const std::vector<NodeType> out);
 };
