@@ -8,21 +8,22 @@ The following tables indicates what operation will be executed given a control s
 
 | Control value | Binary control value| Operation |
 |-|-|-|
-| 0|000000|[Bitwise and](#BitwiseAND)|
-| 1|000001|[Bitwise or](#BitwiseOR)|
-| 2|000010|[Bitwise xor](#BitwiseXOR)|
-| 3|000011|[Bitwise not](#BitwiseNOT)|
-| 4|000100|[Bitwise nand](#BitwiseNAND)|
-| 5|000101|[Bitwise nor](#BitwiseNOR)|
-| 6|000110|[Bitwise xnor](#BitwiseXNOR)|
-| 7|000111|[Logical shift 0 left](#Logical-shift-0-left)|
-| 8|001000|[Logical shift 0 right](#Logical-shift-0-right)|
-| 9|001001|[Logical shift 1 left](#Logical-shift-1-left)|
-|10|001010|[Logical shift 1 right](#Logical-shift-1-right)|
-|11|001011|[Rotate left](#Rotate-left)|
-|12|001100|[Rotate right](#Rotate-right)|
-|13|001101|[Rotate left trough carry](#Rotate-trough-carry-left)|
-|14|001110|[Rotate right trough carry](#Rotate-trough-carry-right)|
+| 0|00000|[Bitwise and](#BitwiseAND)|
+| 1|00001|[Bitwise or](#BitwiseOR)|
+| 2|00010|[Bitwise xor](#BitwiseXOR)|
+| 3|00011|[Bitwise not](#BitwiseNOT)|
+| 4|00100|[Bitwise nand](#BitwiseNAND)|
+| 5|00101|[Bitwise nor](#BitwiseNOR)|
+| 6|00110|[Bitwise xnor](#BitwiseXNOR)|
+| 7|00111|[Logical shift 0 left](#Logical-shift-0-left)|
+| 8|01000|[Logical shift 0 right](#Logical-shift-0-right)|
+| 9|01001|[Logical shift 1 left](#Logical-shift-1-left)|
+|10|01010|[Logical shift 1 right](#Logical-shift-1-right)|
+|11|01011|[Rotate left](#Rotate-left)|
+|12|01100|[Rotate right](#Rotate-right)|
+|13|01101|[Rotate left trough carry](#Rotate-trough-carry-left)|
+|14|01110|[Rotate right trough carry](#Rotate-trough-carry-right)|
+|15|01111|[Integer addition](#Add)|
 
 
 ## Arithmetic

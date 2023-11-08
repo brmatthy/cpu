@@ -21,9 +21,9 @@ RippleAdder::RippleAdder(std::vector<NodeType> inA, std::vector<NodeType> inB, s
 
 	// link the carry outs
 	for(unsigned int i = 1; i < inA.size() ; i++){
-			_fullAdders[inA[i]]->getNode(IN_FULLADD_C)->connect(_fullAdders[inA[i-1]]->getNode(OUT_FULLADD_C));
+			_fullAdders[inA[i]]->getNode(IN_CARRY)->connect(_fullAdders[inA[i-1]]->getNode(OUT_CARRY));
 	}
 
 	// output carry
-	_nodes[OUT_RPPLADD_CARRY]->connect(_fullAdders[inA[inA.size()]]->getNode(OUT_FULLADD_C));
+	_nodes[OUT_CARRY]->connect(_fullAdders[inA[inA.size() - 1]]->getNode(OUT_CARRY));
 }
