@@ -18,6 +18,13 @@ RippleAdder::RippleAdder(std::vector<NodeType> inA, std::vector<NodeType> inB, s
 		_fullAdders[inA[i]]->getNode(IN_FULLADD_A)->connect(_nodes[inA[i]]);
 		_fullAdders[inA[i]]->getNode(IN_FULLADD_B)->connect(_nodes[inB[i]]);
 	}
+	
+	// create the carry nodes
+	_nodes[IN_CARRY] = std::make_shared<Node>(this);
+	_nodes[OUT_CARRY] = std::make_shared<Node>(this);
+
+	// link the input carry
+	_fullAdders[inA[0]]->getNode(IN_CARRY)->connect(_nodes[IN_CARRY]);
 
 	// link the carry outs
 	for(unsigned int i = 1; i < inA.size() ; i++){

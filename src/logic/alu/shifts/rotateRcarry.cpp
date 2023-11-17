@@ -1,4 +1,4 @@
-#include "rotrateRcarry.h"
+#include "rotateRcarry.h"
 #include "../../bit.h"
 
 RotateRCarry::RotateRCarry(const std::vector<NodeType> in, const std::vector<NodeType> out) : Logic() {

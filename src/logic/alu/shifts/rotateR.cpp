@@ -1,4 +1,4 @@
-#include "rotrateR.h"
+#include "rotateR.h"
 #include "../../bit.h"
 
 

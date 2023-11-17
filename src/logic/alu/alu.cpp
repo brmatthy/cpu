@@ -1,5 +1,6 @@
 #include "alu.h"
 #include "../util/dualmultiplexer.h"
+#include "add/rippleadder.h"
 #include "logic/bitwiseAND.h"
 #include "logic/bitwiseOR.h"
 #include "logic/bitwiseXOR.h"
@@ -11,11 +12,12 @@
 #include "shifts/shiftR0.h"
 #include "shifts/shiftL1.h"
 #include "shifts/shiftR1.h"
-#include "shifts/rotrateL.h"
-#include "shifts/rotrateR.h"
-#include "shifts/rotrateLcarry.h"
-#include "shifts/rotrateRcarry.h"
+#include "shifts/rotateL.h"
+#include "shifts/rotateR.h"
+#include "shifts/rotateLcarry.h"
+#include "shifts/rotateRcarry.h"
 
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -46,16 +48,25 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	/*	Create all the operation cuircuits  
 			place the operations in the vector at 
 			the place of the control value */
+	auto dualOperations = std::vector<std::shared_ptr<Logic>>();	
+
 	_operations.push_back(std::make_shared<BitwiseAND>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
 	_operations.push_back(std::make_shared<BitwiseOR>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
 	
 	_operations.push_back(std::make_shared<BitwiseXOR>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
 	_operations.push_back(std::make_shared<BitwiseNOT>(inA, out));
+	dualOperations.push_back(_operations.back());
 
 	_operations.push_back(std::make_shared<BitwiseNAND>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
 	_operations.push_back(std::make_shared<BitwiseNOR>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
 
 	_operations.push_back(std::make_shared<BitwiseXNOR>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
 	_operations.push_back(std::make_shared<ShiftL0>(inA, out));
 
 	_operations.push_back(std::make_shared<ShiftR0>(inA, out));
@@ -72,10 +83,24 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	_operations.push_back(std::make_shared<RotateRCarry>(inA, out));
 	_operations.back()->getNode(IN_CARRY)->connect(_nodes[IN_CARRY]);
 	_operations.back()->getNode(OUT_CARRY)->connect(_nodes[OUT_CARRY]);
-	// TODO: add the add operation
+	_operations.push_back(std::make_shared<RippleAdder>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
+
+
+	// for all operations, connect the inputs
+	for(unsigned int i = 0; i < _operations.size(); i++){
+		auto operation = _operations.at(i);
+		for(auto nodeType : inA){
+			operation->getNode(nodeType)->connect(_nodes[nodeType]);
+		}
+	}
+	for(auto operation : dualOperations){
+		for(auto nodeType : inB){
+			operation->getNode(nodeType)->connect(_nodes[nodeType]);
+		}
+	}
 
 	/* Create the multiplexers */
-
 	// layer 1
 	std::vector<std::shared_ptr<DualMultiplexer>> layer1;
 	for(unsigned int i = 0; i < 16; i += 2){
@@ -98,7 +123,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 
 	// layer 3
 	std::vector<std::shared_ptr<DualMultiplexer>> layer3;
-	for(unsigned int i = 0; i < layer3.size(); i += 2){
+	for(unsigned int i = 0; i < layer2.size(); i += 2){
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
 		mux->connectInA16(layer2.at(i));
 		mux->connectInB16(layer2.at(i+1));

@@ -1,7 +1,7 @@
 #include "node.h"
 
 
-const std::vector<NodeType>  _inA = {
+const std::vector<NodeType>  NodeTypeGetter::_inA16 = {
 	IN_A_0,
 	IN_A_1,
 	IN_A_2,
@@ -24,7 +24,7 @@ const std::vector<NodeType>& NodeTypeGetter::getInA16(){
 	return _inA16;
 }
 
-const std::vector<NodeType>  _inB = {
+const std::vector<NodeType>  NodeTypeGetter::_inB16 = {
 	IN_B_0,
 	IN_B_1,
 	IN_B_2,
@@ -47,7 +47,7 @@ const std::vector<NodeType>& NodeTypeGetter::getInB16(){
 	return _inB16;
 }
 
-const std::vector<NodeType>  _out = {
+const std::vector<NodeType>  NodeTypeGetter::_out16 = {
 	OUT_0,
 	OUT_1,
 	OUT_2,
