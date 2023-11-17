@@ -100,6 +100,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	std::vector<std::shared_ptr<DualMultiplexer>> layer1;
 	for(unsigned int i = 0; i < 16; i += 2){
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
+		_multiplexers.push_back(mux);
 		mux->connectInA16(_operations.at(i));
 		mux->connectInB16(_operations.at(i+1));
 		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_0]);
@@ -110,6 +111,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	std::vector<std::shared_ptr<DualMultiplexer>> layer2;
 	for(unsigned int i = 0; i < layer1.size(); i += 2){
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
+		_multiplexers.push_back(mux);
 		mux->connectInA16(layer1.at(i));
 		mux->connectInB16(layer1.at(i+1));
 		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_1]);
@@ -120,6 +122,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	std::vector<std::shared_ptr<DualMultiplexer>> layer3;
 	for(unsigned int i = 0; i < layer2.size(); i += 2){
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
+		_multiplexers.push_back(mux);
 		mux->connectInA16(layer2.at(i));
 		mux->connectInB16(layer2.at(i+1));
 		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_2]);
@@ -130,6 +133,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	std::vector<std::shared_ptr<DualMultiplexer>> layer4;
 	for(unsigned int i = 0; i < layer3.size(); i += 2){
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
+		_multiplexers.push_back(mux);
 		mux->connectInA16(layer3.at(i));
 		mux->connectInB16(layer3.at(i+1));
 		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_3]);
