@@ -101,12 +101,6 @@ add_executable(tests
 	src/logic/alu/logic/bitwiseXNOR.cpp
 	src/logic/alu/logic/bitwiseXNOR.h
 
-	src/logic/alu/shifts/rotateLcarry.cpp
-	src/logic/alu/shifts/rotateLcarry.h
-
-	src/logic/alu/shifts/rotateRcarry.cpp
-	src/logic/alu/shifts/rotateRcarry.h
-
 	src/logic/alu/shifts/rotateL.cpp
 	src/logic/alu/shifts/rotateL.h
 

@@ -14,8 +14,6 @@
 #include "shifts/shiftR1.h"
 #include "shifts/rotateL.h"
 #include "shifts/rotateR.h"
-#include "shifts/rotateLcarry.h"
-#include "shifts/rotateRcarry.h"
 
 #include <iostream>
 #include <memory>
@@ -58,7 +56,6 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	_operations.push_back(std::make_shared<BitwiseXOR>(inA, inB, out));
 	dualOperations.push_back(_operations.back());
 	_operations.push_back(std::make_shared<BitwiseNOT>(inA, out));
-	dualOperations.push_back(_operations.back());
 
 	_operations.push_back(std::make_shared<BitwiseNAND>(inA, inB, out));
 	dualOperations.push_back(_operations.back());
@@ -76,20 +73,18 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	_operations.push_back(std::make_shared<RotateL>(inA, out));
 
 	_operations.push_back(std::make_shared<RotateR>(inA, out));
-	_operations.push_back(std::make_shared<RotateLCarry>(inA, out));
-	_operations.back()->getNode(IN_CARRY)->connect(_nodes[IN_CARRY]);
-	_operations.back()->getNode(OUT_CARRY)->connect(_nodes[OUT_CARRY]);
-
-	_operations.push_back(std::make_shared<RotateRCarry>(inA, out));
-	_operations.back()->getNode(IN_CARRY)->connect(_nodes[IN_CARRY]);
-	_operations.back()->getNode(OUT_CARRY)->connect(_nodes[OUT_CARRY]);
 	_operations.push_back(std::make_shared<RippleAdder>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
+
+	// placeholder operations
+	_operations.push_back(std::make_shared<BitwiseAND>(inA, inB, out));
+	dualOperations.push_back(_operations.back());
+	_operations.push_back(std::make_shared<BitwiseAND>(inA, inB, out));
 	dualOperations.push_back(_operations.back());
 
 
 	// for all operations, connect the inputs
-	for(unsigned int i = 0; i < _operations.size(); i++){
-		auto operation = _operations.at(i);
+	for(auto operation : _operations){
 		for(auto nodeType : inA){
 			operation->getNode(nodeType)->connect(_nodes[nodeType]);
 		}
