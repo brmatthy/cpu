@@ -36,12 +36,12 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 	_nodes[IN_CARRY] = std::make_shared<Node>(this);
 	_nodes[OUT_CARRY] = std::make_shared<Node>(this);
 
-	// control 1 is the LSB of the control signal
-	// control n is the MSB of the control signal
+	// control 0 is the LSB of the control signal
+	// control n-1 is the MSB of the control signal
+	_nodes[IN_CONTROL_0] = std::make_shared<Node>(this);
 	_nodes[IN_CONTROL_1] = std::make_shared<Node>(this);
 	_nodes[IN_CONTROL_2] = std::make_shared<Node>(this);
 	_nodes[IN_CONTROL_3] = std::make_shared<Node>(this);
-	_nodes[IN_CONTROL_4] = std::make_shared<Node>(this);
 
 	/*	Create all the operation cuircuits  
 			place the operations in the vector at 
@@ -102,7 +102,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
 		mux->connectInA16(_operations.at(i));
 		mux->connectInB16(_operations.at(i+1));
-		mux->getNode(IN_CONTROL_1)->connect(_nodes[IN_CONTROL_1]);
+		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_0]);
 		layer1.push_back(mux);
 	}
 
@@ -112,7 +112,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
 		mux->connectInA16(layer1.at(i));
 		mux->connectInB16(layer1.at(i+1));
-		mux->getNode(IN_CONTROL_1)->connect(_nodes[IN_CONTROL_2]);
+		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_1]);
 		layer2.push_back(mux);
 	}
 
@@ -122,7 +122,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
 		mux->connectInA16(layer2.at(i));
 		mux->connectInB16(layer2.at(i+1));
-		mux->getNode(IN_CONTROL_1)->connect(_nodes[IN_CONTROL_3]);
+		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_2]);
 		layer3.push_back(mux);
 	}
 
@@ -132,7 +132,7 @@ Alu::Alu(const std::vector<NodeType> inA, const std::vector<NodeType> inB, const
 		auto mux = std::make_shared<DualMultiplexer>(inA, inB, out);
 		mux->connectInA16(layer3.at(i));
 		mux->connectInB16(layer3.at(i+1));
-		mux->getNode(IN_CONTROL_1)->connect(_nodes[IN_CONTROL_4]);
+		mux->getNode(IN_CONTROL_0)->connect(_nodes[IN_CONTROL_3]);
 		layer4.push_back(mux);
 	}
 

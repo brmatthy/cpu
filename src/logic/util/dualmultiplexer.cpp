@@ -5,7 +5,7 @@ DualMultiplexer::DualMultiplexer(
 	const std::vector<NodeType> out): 
 		Logic() {
 	// create all the components
-	_nodes[IN_CONTROL_1] = std::make_shared<Node>(this);
+	_nodes[IN_CONTROL_0] = std::make_shared<Node>(this);
 	for(unsigned int i = 0; i < inA.size(); i++){
 		// create the nodes
 		_nodes[inA[i]] = std::make_shared<Node>(this);
@@ -20,7 +20,7 @@ DualMultiplexer::DualMultiplexer(
 		_nodes[out[i]]->connect(selector->getNode(OUT_SELECTOR));
 		selector->getNode(IN_SELECTOR_A)->connect(_nodes[inA[i]]);
 		selector->getNode(IN_SELECTOR_B)->connect(_nodes[inB[i]]);
-		selector->getNode(IN_SELECTOR_S)->connect(_nodes[IN_CONTROL_1]);
+		selector->getNode(IN_SELECTOR_S)->connect(_nodes[IN_CONTROL_0]);
 	}
 };
 

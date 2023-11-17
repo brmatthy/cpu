@@ -113,10 +113,10 @@ enum NodeType{
 
 	OUT_FULLADD_S,
 
+	IN_CONTROL_0,
 	IN_CONTROL_1,
 	IN_CONTROL_2,
 	IN_CONTROL_3,
-	IN_CONTROL_4,
 };
 
 class NodeTypeGetter {

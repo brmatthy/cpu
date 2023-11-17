@@ -47,9 +47,15 @@ void initAlu(
 	alu->getNode(IN_CARRY)->connect(cIn->getNode(BIT));
 	cOut->getNode(BIT)->connect(alu->getNode(OUT_CARRY));
 
+	// connect the control values
+	alu->getNode(IN_CONTROL_0)->connect(control.at(0).getNode(BIT));
+	alu->getNode(IN_CONTROL_1)->connect(control.at(1).getNode(BIT));
+	alu->getNode(IN_CONTROL_2)->connect(control.at(2).getNode(BIT));
+	alu->getNode(IN_CONTROL_3)->connect(control.at(3).getNode(BIT));
+
 	// set start state for the bits
 	inA.at(0).setState(true);
-	inA.at(1).setState(true);
+	inA.at(1).setState(false);
 	inA.at(2).setState(true);
 	inA.at(3).setState(false);
 	inA.at(4).setState(true);
@@ -126,7 +132,7 @@ TEST_SUITE("Alu selection"){
 			CHECK_FALSE(out.at(i).getNode(BIT)->getState());
 		}
 	}
-/*
+
 	TEST_CASE("ALU bitwise OR"){
 		initAlu(alu, inA, inB, control, out, cIn, cOut);
 
@@ -136,11 +142,8 @@ TEST_SUITE("Alu selection"){
 		control.at(2).setState(false);
 		control.at(3).setState(false);
 
-		printOperation(inA, inB, out, true);
-
 		for(unsigned int i = 0; i < 16; i++){
 			CHECK(out.at(i).getNode(BIT)->getState());
 		}
 	}
-	*/
 }
