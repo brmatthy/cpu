@@ -11,6 +11,7 @@
 #include "../src/logic/gates/nand.h"
 #include "../src/logic/gates/nor.h"
 #include "../src/logic/gates/xnor.h" 
+#include "../src/logic/gates/selector.h" 
 #include "../src/logic/bit.h" 
 
 TEST_SUITE("Gates"){
@@ -182,6 +183,58 @@ TEST_SUITE("Gates"){
 
 		A->setState(true);
 		B->setState(true);
+		CHECK(out->getState());
+	}
+
+	TEST_CASE("Selector truth table"){
+		auto selector = std::make_shared<Selector>();
+		auto out = selector->getNode(OUT_SELECTOR);
+		auto A = std::make_shared<Bit>();
+		auto B = std::make_shared<Bit>();
+		auto S = std::make_shared<Bit>();
+
+		selector->getNode(IN_SELECTOR_A)->connect(A->getNode(BIT));
+		selector->getNode(IN_SELECTOR_B)->connect(B->getNode(BIT));
+		selector->getNode(IN_SELECTOR_S)->connect(S->getNode(BIT));
+
+		A->setState(false);
+		B->setState(false);
+		S->setState(false);
+		CHECK_FALSE(out->getState());
+
+		A->setState(false);
+		B->setState(true);
+		S->setState(false);
+		CHECK_FALSE(out->getState());
+
+		A->setState(true);
+		B->setState(false);
+		S->setState(false);
+		CHECK(out->getState());
+
+		A->setState(true);
+		B->setState(true);
+		S->setState(false);
+		CHECK(out->getState());
+
+		A->setState(false);
+		B->setState(false);
+		S->setState(true);
+		CHECK_FALSE(out->getState());
+
+		A->setState(false);
+		B->setState(true);
+		S->setState(true);
+		CHECK(out->getState());
+
+		A->setState(true);
+		B->setState(false);
+		S->setState(true);
+		CHECK_FALSE(out->getState());
+
+		A->setState(true);
+		B->setState(true);
+		S->setState(true);
 		CHECK(out->getState());
 	}
 }
