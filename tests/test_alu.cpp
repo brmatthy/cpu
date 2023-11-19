@@ -84,10 +84,10 @@ void initAlu(
 	inB.at(9).setState(true);
 	inB.at(10).setState(true);
 	inB.at(11).setState(true);
-	inB.at(12).setState(false);
-	inB.at(13).setState(true);
-	inB.at(14).setState(false);
-	inB.at(15).setState(true);
+	inB.at(12).setState(true);
+	inB.at(13).setState(false);
+	inB.at(14).setState(true);
+	inB.at(15).setState(false);
 }
 
 void printOperation(
@@ -128,9 +128,22 @@ TEST_SUITE("Alu selection"){
 		control.at(2).setState(false);
 		control.at(3).setState(false);
 
-		for(unsigned int i = 0; i < 16; i++){
-			CHECK_FALSE(out.at(i).getNode(BIT)->getState());
-		}
+		CHECK_FALSE(out.at(0).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(1).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(2).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(3).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(4).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(5).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(6).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(7).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(8).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(9).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(10).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(11).getNode(BIT)->getState());
+		CHECK(out.at(12).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(13).getNode(BIT)->getState());
+		CHECK(out.at(14).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(15).getNode(BIT)->getState());
 	}
 
 	TEST_CASE("ALU bitwise OR"){
@@ -142,8 +155,158 @@ TEST_SUITE("Alu selection"){
 		control.at(2).setState(false);
 		control.at(3).setState(false);
 
-		for(unsigned int i = 0; i < 16; i++){
-			CHECK(out.at(i).getNode(BIT)->getState());
-		}
+		CHECK(out.at(0).getNode(BIT)->getState());
+		CHECK(out.at(1).getNode(BIT)->getState());
+		CHECK(out.at(2).getNode(BIT)->getState());
+		CHECK(out.at(3).getNode(BIT)->getState());
+		CHECK(out.at(4).getNode(BIT)->getState());
+		CHECK(out.at(5).getNode(BIT)->getState());
+		CHECK(out.at(6).getNode(BIT)->getState());
+		CHECK(out.at(7).getNode(BIT)->getState());
+		CHECK(out.at(8).getNode(BIT)->getState());
+		CHECK(out.at(9).getNode(BIT)->getState());
+		CHECK(out.at(10).getNode(BIT)->getState());
+		CHECK(out.at(11).getNode(BIT)->getState());
+		CHECK(out.at(12).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(13).getNode(BIT)->getState());
+		CHECK(out.at(14).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(15).getNode(BIT)->getState());
 	}
+
+	TEST_CASE("ALU bitwise XOR"){
+		initAlu(alu, inA, inB, control, out, cIn, cOut);
+
+		// set the control bits
+		control.at(0).setState(false);
+		control.at(1).setState(true);
+		control.at(2).setState(false);
+		control.at(3).setState(false);
+
+		CHECK(out.at(0).getNode(BIT)->getState());
+		CHECK(out.at(1).getNode(BIT)->getState());
+		CHECK(out.at(2).getNode(BIT)->getState());
+		CHECK(out.at(3).getNode(BIT)->getState());
+		CHECK(out.at(4).getNode(BIT)->getState());
+		CHECK(out.at(5).getNode(BIT)->getState());
+		CHECK(out.at(6).getNode(BIT)->getState());
+		CHECK(out.at(7).getNode(BIT)->getState());
+		CHECK(out.at(8).getNode(BIT)->getState());
+		CHECK(out.at(9).getNode(BIT)->getState());
+		CHECK(out.at(10).getNode(BIT)->getState());
+		CHECK(out.at(11).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(12).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(13).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(14).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(15).getNode(BIT)->getState());
+	}
+
+	TEST_CASE("ALU bitwise NOT"){
+		initAlu(alu, inA, inB, control, out, cIn, cOut);
+
+		// set the control bits
+		control.at(0).setState(true);
+		control.at(1).setState(true);
+		control.at(2).setState(false);
+		control.at(3).setState(false);
+
+		CHECK_FALSE(out.at(0).getNode(BIT)->getState());
+		CHECK(out.at(1).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(2).getNode(BIT)->getState());
+		CHECK(out.at(3).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(4).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(5).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(6).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(7).getNode(BIT)->getState());
+		CHECK(out.at(8).getNode(BIT)->getState());
+		CHECK(out.at(9).getNode(BIT)->getState());
+		CHECK(out.at(10).getNode(BIT)->getState());
+		CHECK(out.at(11).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(12).getNode(BIT)->getState());
+		CHECK(out.at(13).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(14).getNode(BIT)->getState());
+		CHECK(out.at(15).getNode(BIT)->getState());
+	}
+
+	TEST_CASE("ALU bitwise NAND"){
+		initAlu(alu, inA, inB, control, out, cIn, cOut);
+
+		// set the control bits
+		control.at(0).setState(false);
+		control.at(1).setState(false);
+		control.at(2).setState(true);
+		control.at(3).setState(false);
+
+		CHECK(out.at(0).getNode(BIT)->getState());
+		CHECK(out.at(1).getNode(BIT)->getState());
+		CHECK(out.at(2).getNode(BIT)->getState());
+		CHECK(out.at(3).getNode(BIT)->getState());
+		CHECK(out.at(4).getNode(BIT)->getState());
+		CHECK(out.at(5).getNode(BIT)->getState());
+		CHECK(out.at(6).getNode(BIT)->getState());
+		CHECK(out.at(7).getNode(BIT)->getState());
+		CHECK(out.at(8).getNode(BIT)->getState());
+		CHECK(out.at(9).getNode(BIT)->getState());
+		CHECK(out.at(10).getNode(BIT)->getState());
+		CHECK(out.at(11).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(12).getNode(BIT)->getState());
+		CHECK(out.at(13).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(14).getNode(BIT)->getState());
+		CHECK(out.at(15).getNode(BIT)->getState());
+	}
+
+	TEST_CASE("ALU bitwise NOR"){
+		initAlu(alu, inA, inB, control, out, cIn, cOut);
+
+		// set the control bits
+		control.at(0).setState(true);
+		control.at(1).setState(false);
+		control.at(2).setState(true);
+		control.at(3).setState(false);
+
+		CHECK_FALSE(out.at(0).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(1).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(2).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(3).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(4).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(5).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(6).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(7).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(8).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(9).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(10).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(11).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(12).getNode(BIT)->getState());
+		CHECK(out.at(13).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(14).getNode(BIT)->getState());
+		CHECK(out.at(15).getNode(BIT)->getState());
+	}
+
+	TEST_CASE("ALU bitwise XNOR"){
+		initAlu(alu, inA, inB, control, out, cIn, cOut);
+
+		// set the control bits
+		control.at(0).setState(false);
+		control.at(1).setState(true);
+		control.at(2).setState(true);
+		control.at(3).setState(false);
+
+		CHECK_FALSE(out.at(0).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(1).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(2).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(3).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(4).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(5).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(6).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(7).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(8).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(9).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(10).getNode(BIT)->getState());
+		CHECK_FALSE(out.at(11).getNode(BIT)->getState());
+		CHECK(out.at(12).getNode(BIT)->getState());
+		CHECK(out.at(13).getNode(BIT)->getState());
+		CHECK(out.at(14).getNode(BIT)->getState());
+		CHECK(out.at(15).getNode(BIT)->getState());
+	}
+
+
 }
