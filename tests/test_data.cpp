@@ -1,9 +1,9 @@
 #include "doctest.h"
 
-#include "../src/logic/bit.h" 
-#include "../src/logic/data/dlatch.h"
-#include "../src/logic/data/dflipflop.h"
-#include "../src/logic/data/register16.h"
+#include "logic/util/Bit.h" 
+#include "logic/data/DLatch.h"
+#include "logic/data/DFlipFlop.h"
+#include "logic/data/Register16.h"
 #include <iostream>
 #include <memory>
 #include <ostream>
