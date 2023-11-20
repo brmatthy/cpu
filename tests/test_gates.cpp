@@ -3,16 +3,16 @@
 
 #include <memory>
 
-#include "../src/logic/base/Logic.h"
-#include "../src/logic/gates/not.h"
-#include "../src/logic/gates/and.h"
-#include "../src/logic/gates/or.h"
-#include "../src/logic/gates/xor.h"
-#include "../src/logic/gates/nand.h"
-#include "../src/logic/gates/nor.h"
-#include "../src/logic/gates/xnor.h" 
-#include "../src/logic/gates/selector.h" 
-#include "../src/logic/bit.h" 
+#include "logic/base/Logic.h"
+#include "logic/gates/Not.h"
+#include "logic/gates/And.h"
+#include "logic/gates/Or.h"
+#include "logic/gates/Xor.h"
+#include "logic/gates/Nand.h"
+#include "logic/gates/Nor.h"
+#include "logic/gates/Xnor.h" 
+#include "logic/gates/Selector.h" 
+#include "logic/util/Bit.h" 
 
 TEST_SUITE("Gates"){
 

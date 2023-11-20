@@ -1,4 +1,4 @@
-#include "Logic.h"
+#include "logic/base/Logic.h"
 
 std::shared_ptr<Node> Logic::getNode(NodeType type) const{
 	if(0 < _nodes.count(type)){

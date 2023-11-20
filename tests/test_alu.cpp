@@ -4,9 +4,9 @@
 #include <memory>
 #include <string>
 
-#include "../src/logic/base/Logic.h"
-#include "../src/logic/alu/alu.h"
-#include "../src/logic/bit.h" 
+#include "logic/base/Logic.h"
+#include "logic/alu/Alu.h"
+#include "logic/util/Bit.h" 
 
 void initAlu(
 	std::shared_ptr<Alu>& alu,
