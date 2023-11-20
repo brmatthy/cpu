@@ -75,15 +75,19 @@ flowchart LR
 	
 ```
 If the predecessor's O_1 updates state, our component's I_1 will be notified, will update itself, and will tell our component that it updated, next it will notify all the nodes that are subscribed to it.
+This way the update of a node will propagate through the circuitry until every component has the correct state.
+
+Note that a node can only have one predecessor, but may have multiple subscribed nodes.
 
 #### Disconnect
 Analogue to the connect function the `Logic::disConnect(InputBits in)` will disconnect a given input bit from the output bit it listens to.
 
 ### NodeType
-#### InputBits
 The `NodeType` enum is located in `src/logic/base/Node.h`. When you create a new logic component you have to add all the nodes to this enum. The name of your newnode will follow the following structure
 
 <IN|OUT>\_<COMPONENT_NAME_ALL_CAPS>\_<BIT_NAME_ALL_CAPS>
+
+All the logic components use the `NodeType` enum to index their nodes. This implies that the type checker will not detect when you try to access a node that doesn't exist on a component. Make sure that you always request the correct node.
 
 ### Logic update()
 The `update()` function in the `Logic` class is called when any of it's nodes are notified for an update. Since nodes automatically update when the predecessor updates this function is empty. However, by doing so we would only be able to pass state, but not change state. The basic operations like `or`, `and`, etc. will be implemented by overriding this update function.
